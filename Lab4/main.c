@@ -71,7 +71,7 @@ void FunctionalTaskA(void *pvParameter)
     while(1)
 	{
         if(xQueuePeek(xQueue, &xRequest, (TickType_t)10) != pdPASS) {
-            printf("FunctionalTaskA: Receive failed!!!\n");
+            // printf("FunctionalTaskA: Receive failed!!!\n");
         } else {
             // printf("Receive ID: %d\n", xRequest.taskID);
             if (xRequest.taskID == TASKA_ID) {
@@ -79,11 +79,12 @@ void FunctionalTaskA(void *pvParameter)
                 clearFlag();
                 // HANDLE
                 printf("FunctionalTaskA: Handle\n");
+                vTaskDelay(2000 / portTICK_RATE_MS);
             } else {
                 isRead[TASKA_ID] = true;
             }
         }
-        vTaskDelay(2000 / portTICK_RATE_MS);
+        vTaskDelay(100 / portTICK_RATE_MS);
 	}
 }   
 
@@ -93,7 +94,7 @@ void FunctionalTaskB(void *pvParameter)
     while(1)
 	{
         if(xQueuePeek(xQueue, &xRequest, (TickType_t)10) != pdPASS) {
-            printf("FunctionalTaskB: Receive failed!!!\n");
+            // printf("FunctionalTaskB: Receive failed!!!\n");
         } else {
             // printf("Receive ID: %d\n", xRequest.taskID);
             if (xRequest.taskID == TASKB_ID) {
@@ -101,11 +102,12 @@ void FunctionalTaskB(void *pvParameter)
                 clearFlag();
                 // HANDLE
                 printf("FunctionalTaskB: Handle\n");
+                vTaskDelay(2000 / portTICK_RATE_MS);
             } else {
                 isRead[TASKB_ID] = true;
             }
         }
-        vTaskDelay(2000 / portTICK_RATE_MS);
+        vTaskDelay(100 / portTICK_RATE_MS);
 	}
 }  
 
@@ -115,7 +117,7 @@ void FunctionalTaskC(void *pvParameter)
     while(1)
 	{
         if(xQueuePeek(xQueue, &xRequest, (TickType_t)10) != pdPASS) {
-            printf("FunctionalTaskC: Receive failed!!!\n");
+            // printf("FunctionalTaskC: Receive failed!!!\n");
         } else {
             // printf("Receive ID: %d\n", xRequest.taskID);
             if (xRequest.taskID == TASKC_ID) {
@@ -123,11 +125,12 @@ void FunctionalTaskC(void *pvParameter)
                 clearFlag();
                 // HANDLE
                 printf("FunctionalTaskC: Handle\n");
+                vTaskDelay(2000 / portTICK_RATE_MS);
             } else {
                 isRead[TASKC_ID] = true;
             }
         }
-        vTaskDelay(2000 / portTICK_RATE_MS);
+        vTaskDelay(100 / portTICK_RATE_MS);
 	}
 }  
 
@@ -137,16 +140,17 @@ void ErrorHandlerTask(void *pvParameter)
     while(1)
 	{
         if(xQueuePeek(xQueue, &xRequest, (TickType_t)10) != pdPASS) {
-            printf("ErrorHandlerTask: Receive failed!!!\n");
+            // printf("ErrorHandlerTask: Receive failed!!!\n");
         } else {
             // printf("Receive ID: %d\n",xRequest.taskID);
             if (isAllRead()) {
                 xQueueReceive(xQueue, &xRequest, (TickType_t)10);
                 // HANDLE
                 printf("ErrorHandlerTask: Handle\n");
+                vTaskDelay(1000 / portTICK_RATE_MS);
             }
         }
-        vTaskDelay(1000 / portTICK_RATE_MS);
+        vTaskDelay(100 / portTICK_RATE_MS);
 	}
 }   
 
