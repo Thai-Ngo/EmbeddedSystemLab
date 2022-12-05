@@ -157,7 +157,7 @@ void ErrorHandlerTask(void *pvParameter)
 
 void app_main(void)
 {
-    xQueue = xQueueCreate(QUEUE_SIZE, sizeof(struct Request *));
+    xQueue = xQueueCreate(QUEUE_SIZE, sizeof(struct Request));
     clearFlag();
 
     xTaskCreate(&ReceptionTask, "ReceptionTask", 2048, NULL, 1, NULL);
